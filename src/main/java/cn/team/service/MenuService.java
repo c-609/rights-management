@@ -2,13 +2,13 @@ package cn.team.service;
 
 import java.util.List;
 
+import cn.team.common.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.team.bean.Menu;
-import cn.team.common.UserUtils;
 import cn.team.mapper.MenuMapper;
 
 
@@ -26,7 +26,7 @@ public class MenuService {
     }
 
     public List<Menu> getMenusByUId() {
-        return menuMapper.getMenusByUId(UserUtils.getCurrentUser().getId());
+        return menuMapper.getMenusByUId(UserUtil.getCurrentUser().getId());
     }
 
     public List<Menu> menuTree() {

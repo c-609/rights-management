@@ -1,14 +1,12 @@
 package cn.team.exception;
 
+import cn.team.common.beans.ResultBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import cn.team.bean.RespBean;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,8 +23,9 @@ public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
         resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         resp.setContentType("application/json;charset=UTF-8");
         PrintWriter out = resp.getWriter();
-        RespBean error = RespBean.error("权限不足，请联系管理员!");
-        out.write(new ObjectMapper().writeValueAsString(error));
+        ResultBean resultBean = new ResultBean("权限不足，请联系管理员!");
+        resultBean.setCode(ResultBean.NO_PERMISSION);
+        out.write(new ObjectMapper().writeValueAsString(resultBean));
         out.flush();
         out.close();
     }

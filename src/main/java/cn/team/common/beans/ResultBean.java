@@ -1,15 +1,24 @@
-package cn.team.bean;
+package cn.team.common.beans;
+
+import lombok.Data;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.Serializable;
 
-import lombok.Data;
-
+/**
+ *
+ * 返回对象包装类（带泛型）
+ * create by yifeng
+ */
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ResultBean<T> implements Serializable {
 
     private static final long serialVersionUID = 6555201656989268527L;
 
     public static final int NO_LOGIN = -1;
+
+    public static final int USERNAME_OR_PASSWORD_NON = 3;
 
     public static final int SUCCESS = 0;
 
@@ -17,13 +26,9 @@ public class ResultBean<T> implements Serializable {
 
     public static final int NO_PERMISSION = 2;
 
-    public static final int UNKNOWN_EXCEPTION = -99;
+    public static final int UNKNOWN_EXCEPTION = -99; // 位置错误
 
-    
-    
-
-
-	/**
+    /**
      * 返回的信息（出错时使用）
      */
     private String msg = "success";
@@ -52,14 +57,6 @@ public class ResultBean<T> implements Serializable {
 
 	public void setCode(int code) {
 		this.code = code;
-	}
-	
-    public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
 	}
 
 	private T data;

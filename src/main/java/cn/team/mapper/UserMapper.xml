@@ -58,7 +58,7 @@
 	<select id="findUserById" parameterType="int" resultType="cn.team.bean.User">
 		select * from users where id=#{id}
 	</select>
-<!-- 	<select id="findUserByName" parameterType="String" resultType="cn.team.bean.User">
+<!-- 	<select id="findUserByName" parameterType="String" resultType="cn.team.beans.User">
 		select * from users where username LIKE '%${username}%'
 	</select> -->
 	<update id="updateUser">
