@@ -55,6 +55,15 @@ public class UserService implements UserDetailsService{
 		return userMapper.deleteUserByUsername(username);
 	}
 	
+//	public int addRoleForUser(int uId,int[] rids) {
+//		return userMapper.addRolesForUser(uId, rids);
+//	}
+	public int updateRoleForUser(int uId,int[] rids) {
+		 int i = userMapper.deleteRoleByUId(uId);
+	      return userMapper.addRolesForUser(uId, rids);
+		
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		 User user = userMapper.findUserByUsername(username);

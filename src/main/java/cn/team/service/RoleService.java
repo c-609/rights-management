@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.team.bean.Role;
+import cn.team.bean.User;
 import cn.team.mapper.RoleMapper;
 
 import java.util.List;
@@ -31,5 +32,9 @@ public class RoleService {
 
     public int deleteRoleById(Long rid) {
         return roleMapper.deleteRoleById(rid);
+    }
+    
+    public List<User> getUserByRoleId(int rid){
+    	return roleMapper.findUserByRoleId(rid);
     }
 }

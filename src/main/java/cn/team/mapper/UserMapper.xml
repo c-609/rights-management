@@ -76,4 +76,20 @@
 		delete from users where users.username=#{username}
 	</delete>
 		
+	 <insert id="addRolesForUser">
+        INSERT INTO user_role(user_id,role_id) VALUES
+        <foreach collection="rids" separator="," item="rid">
+            (#{uId},#{rid})
+        </foreach>
+    </insert>
+    
+    <delete id="deleteRoleByUId" parameterType="Long">
+        DELETE FROM user_role where user_id=#{UId}
+    </delete>
+    
+    <!-- <update id="updateRoleForUser">
+    	update user_role set role_id = #{rId} where user_role.id=#{urId}
+		
+    </update> -->
+    
 </mapper>

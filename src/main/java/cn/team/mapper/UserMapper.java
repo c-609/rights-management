@@ -32,4 +32,11 @@ public interface UserMapper {
 	int updateUser(@Param("user")User user);
 	
 	int deleteUserByUsername(@Param("username") String username);
+
+	
+	int deleteRoleByUId(int UId);
+	
+	int addRolesForUser(@Param("uId") int  uId, @Param("rids") int [] rids);
+
+	//int updateRoleForUser(@Param("urId") int urId,@Param("rid") int rId);
 }

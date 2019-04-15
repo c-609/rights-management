@@ -12,4 +12,9 @@
     <delete id="deleteRoleById" parameterType="Long">
         DELETE FROM role WHERE id=#{rid}
     </delete>
+    
+    <select id="findUserByRoleId">
+    	select users.username from users,user_role
+    	where user_role.user_id=users.id and user_role.role_id=#{rid}
+    </select>
 </mapper>
