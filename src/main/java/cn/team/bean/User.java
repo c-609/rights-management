@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,8 +35,10 @@ public class User implements UserDetails{
 		return username;
 	}
 	public void setUsername(String username) {
+
 		this.username = username;
 	}
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -48,6 +51,7 @@ public class User implements UserDetails{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
@@ -56,21 +60,25 @@ public class User implements UserDetails{
         }
         return authorities;
 	}
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
