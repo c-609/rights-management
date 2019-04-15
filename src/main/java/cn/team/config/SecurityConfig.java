@@ -43,7 +43,6 @@ import cn.team.bean.ResultBean;
 import cn.team.common.UserUtils;
 import cn.team.exception.AuthenticationAccessDeniedHandler;
 import cn.team.service.UserService;
-import io.undertow.security.api.AuthenticatedSessionManager;
 
 
 @Configuration
