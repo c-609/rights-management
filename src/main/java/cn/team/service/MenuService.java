@@ -42,9 +42,7 @@ public class MenuService {
     }
 
     public int updateMenu(Menu menu) {
-        //TODO 修改菜单
-//        return menuMapper.up;
-        return 1;
+        return menuMapper.updateMenu(menu);
     }
 
     public int deleteMenu(int mid) {

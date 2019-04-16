@@ -34,7 +34,6 @@ public class UpmsMenuController {
     @ResponseBody
     public ResultBean deleteMenu(int mid) {
 //        return new ResultBean(menuService(user));
-        //TODO 删除菜单
         menuService.deleteMenu(mid);
         return null;
     }

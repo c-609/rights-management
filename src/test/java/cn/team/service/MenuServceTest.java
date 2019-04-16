@@ -25,7 +25,11 @@ public class MenuServceTest extends RightsManageApplicationTest {
 
     @Test
     public void testUpdate() {
-
+        Menu menu = new Menu();
+        menu.setId(232L);
+        menu.setName("你好帅");
+        int rowCount = menuService.updateMenu(menu);
+        System.out.println(rowCount);
     }
 
     @Test
