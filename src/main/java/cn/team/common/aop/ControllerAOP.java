@@ -13,15 +13,12 @@ import org.springframework.stereotype.Component;
 import javax.naming.NoPermissionException;
 
 /**
+ * 处理和包装异常
  * create by yifeng
  */
 @Aspect
 @Component
 public class ControllerAOP {
-    /**
-     * 处理和包装异常
-     * create by yifeng
-     */
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerAOP.class);
 

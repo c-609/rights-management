@@ -33,9 +33,7 @@ public class UpmsMenuController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean deleteMenu(int mid) {
-//        return new ResultBean(menuService(user));
-        menuService.deleteMenu(mid);
-        return null;
+        return new ResultBean(menuService.deleteMenu(mid));
     }
 
     public ResultBean updateMenu(Menu menu) {

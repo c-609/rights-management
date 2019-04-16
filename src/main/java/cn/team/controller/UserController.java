@@ -31,38 +31,4 @@ public class UserController {
         return map;
     }
 	
-	@Autowired
-	MenuService menuService;
-	
-	@RequestMapping(value="/menu")
-	public Map<String,Object> menus(){
-		Map map = new HashMap<String, Object>();
-		map.put("menus", menuService.getAllMenu());
-		return map;
-	}
-	
-	@Autowired
-	RoleService roleService;
-	
-	@RequestMapping(value="/role")
-	public Map<String,Object> roles(){
-		Map map = new HashMap<String, Object>();
-		map.put("roles", roleService.roles());
-		return map;
-	}
-	
-//	@RequestMapping(value="/getUserByUsername/{username}") 
-//    public String getUserByUsername(@PathVariable String username){
-//        return (userService.getUserByUsername(username)).toString();
-//    }
-//	@RequestMapping(value="/addUser") 
-//    public String addUser(){
-//		User user = null;
-//		user.setUsername("1111");
-//		user.setPassword("123");
-//		int i = userService.addUser(user);
-//        return i==1?"cg":"sb";
-//    }
-	
-	
 }
