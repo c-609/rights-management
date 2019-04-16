@@ -63,5 +63,30 @@
     <delete id="deleteMenuById">
     	delete from menu where menu.id=#{mid}
     </delete>
+
+    <update id="updateMenu">
+        update menu
+          <set>
+              <if test="menu.url!=null and menu.url != ''">
+                  url = #{menu.url},
+              </if>
+              <if test="menu.path !=null and menu.path != ''">
+                  path = #{menu.path},
+              </if>
+              <if test="menu.component !=null and menu.component != ''">
+                  component = #{menu.component},
+              </if>
+              <if test="menu.name !=null and menu.name != ''">
+                  name = #{menu.name},
+              </if>
+              <if test="menu.parentId !=null and menu.parentId != ''">
+                  parentId = #{menu.parentId},
+              </if>
+              <if test="menu.iconCls !=null and menu.iconCls != ''">
+                  iconCls = #{menu.iconCls}
+              </if>
+          </set>
+        where menu.id = #{menu.id,jdbcType=BIGINT}
+    </update>
     
 </mapper>

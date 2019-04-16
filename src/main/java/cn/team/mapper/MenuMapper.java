@@ -24,4 +24,6 @@ public interface MenuMapper {
     int addMenu(Menu menu);
     
     int deleteMenuById(@Param("mid") int mid);
+
+    int updateMenu(@Param("menu") Menu menu);
 }
