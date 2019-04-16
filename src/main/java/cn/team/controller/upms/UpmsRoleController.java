@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * create by yifeng
  */
+@RestController
 @RequestMapping("/upms/role")
 public class UpmsRoleController {
 
@@ -23,25 +25,25 @@ public class UpmsRoleController {
     @Autowired
     private MenuRoleService menuRoleService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public ResultBean getAllRole() {
         return new ResultBean(roleService.roles());
     }
 
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean addRole(String role, String roleZh) {
         return new ResultBean(roleService.addNewRole(role, roleZh));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean deleteRole(Long rid) {
         return new ResultBean(roleService.deleteRoleById(rid));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean updateRole(Role role) {
         return new ResultBean(roleService.updateRole(role));

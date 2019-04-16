@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * create by yifeng
- */
+*/
 public class MenuServceTest extends RightsManageApplicationTest {
 
     @Autowired
