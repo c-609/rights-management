@@ -30,6 +30,11 @@ public class RoleService {
         return roleMapper.addNewRole(role, roleZh);
     }
 
+    public int updateRole(Role role) {
+        //TODO 更新角色
+        return 1;
+    }
+
     public int deleteRoleById(Long rid) {
         return roleMapper.deleteRoleById(rid);
     }
