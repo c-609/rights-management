@@ -36,4 +36,19 @@ public class MenuService {
     public List<Long> getMenusByRid(Long rid) {
         return menuMapper.getMenusByRid(rid);
     }
+
+    public int addMunu(Menu menu) {
+        return menuMapper.addMenu(menu);
+    }
+
+    public int updateMenu(Menu menu) {
+        //TODO 修改菜单
+//        return menuMapper.up;
+        return 1;
+    }
+
+    public int deleteMenu(int mid) {
+        return menuMapper.deleteMenuById(mid);
+    }
+
 }
