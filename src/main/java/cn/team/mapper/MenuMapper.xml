@@ -54,4 +54,14 @@
     <select id="getMenusByRid" resultType="Long">
         SELECT menu_id from menu_role WHERE role_id=#{rid}
     </select>
+    
+     <insert id="addMenu">
+    		insert into menu(url,path,component,name,iconCls,requireAuth,parantId)
+    		value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parantId})
+    </insert>
+    
+    <delete id="deleteMenuById">
+    	delete from menu where menu.id=#{mid}
+    </delete>
+    
 </mapper>

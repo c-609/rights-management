@@ -17,4 +17,8 @@
     	select users.username from users,user_role
     	where user_role.user_id=users.id and user_role.role_id=#{rid}
     </select>
+    
+    <update id="updateRole">
+    	update role set role.name=#{name},role.nameZh=#{nameZh} where role.id=#{id}
+    </update>
 </mapper>

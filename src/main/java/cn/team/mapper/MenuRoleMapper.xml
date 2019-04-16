@@ -7,7 +7,7 @@
         DELETE FROM menu_role WHERE rid=#{rid}
     </delete>
     <insert id="addMenu">
-        INSERT INTO menu_role(mid,rid) VALUES
+        INSERT INTO menu_role(menu_id,role_id) VALUES
         <foreach collection="mids" item="mid" separator=",">
             (#{mid},#{rid})
         </foreach>
