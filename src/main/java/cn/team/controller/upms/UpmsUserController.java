@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * create by yifeng
  */
@@ -21,25 +23,25 @@ public class UpmsUserController {
 
     @RequestMapping("/")
     @ResponseBody
-    public ResultBean getAllUser() {
+    public ResultBean<List<User>> getAllUser() {
         return new ResultBean(userService.getAllUser());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean addUser(User user) {
+    public ResultBean<Integer> addUser(User user) {
         return new ResultBean(userService.addUser(user));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean deleteUser(String username) {
+    public ResultBean<Integer> deleteUser(String username) {
         return new ResultBean(userService.deleteUserByUsername(username));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean updateUser(User user) {
+    public ResultBean<Integer> updateUser(User user) {
         return new ResultBean(userService.updateUser(user));
     }
 

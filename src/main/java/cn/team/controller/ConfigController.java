@@ -1,5 +1,7 @@
 package cn.team.controller;
 
+import cn.team.bean.Menu;
+import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
 import cn.team.common.util.UserUtil;
 import cn.team.service.MenuService;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * create by yifeng
@@ -21,13 +25,13 @@ public class ConfigController {
 
     @RequestMapping("/sysmenu")
     @ResponseBody
-    public ResultBean sysmenu() {
-        return new ResultBean(menuService.menuTree());
+    public ResultBean<List<Menu>> sysmenu() {
+        return new ResultBean(menuService.getMenusByUId());
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean currentUser() {
+    public ResultBean<User> currentUser() {
         return new ResultBean(UserUtil.getCurrentUser());
     }
 

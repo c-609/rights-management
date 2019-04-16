@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * create by yifeng
  */
@@ -22,25 +24,25 @@ public class UpmsMenuController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public ResultBean getAllMenu() {
+    public ResultBean<List<Menu>> getAllMenu() {
         return new ResultBean(menuService.getAllMenu());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean addMenu(Menu menu) {
-        return new ResultBean<>(menuService.addMunu(menu));
+        return new ResultBean<Integer>(menuService.addMunu(menu));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean deleteMenu(int mid) {
+    public ResultBean<Integer> deleteMenu(int mid) {
         return new ResultBean(menuService.deleteMenu(mid));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean updateMenu(Menu menu) {
+    public ResultBean<Integer> updateMenu(Menu menu) {
         return new ResultBean(menuService.updateMenu(menu));
     }
 
