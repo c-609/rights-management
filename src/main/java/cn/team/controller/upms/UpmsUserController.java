@@ -4,10 +4,7 @@ import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
 import cn.team.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class UpmsUserController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<Integer> updateUser(User user) {
+    public ResultBean<Integer> updateUser(@RequestBody User user) {
         return new ResultBean(userService.updateUser(user));
     }
 

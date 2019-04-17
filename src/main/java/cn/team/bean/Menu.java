@@ -46,7 +46,7 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public String getUrl() {
         return url;
     }
@@ -88,7 +88,7 @@ public class Menu implements Serializable {
         this.iconCls = iconCls;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public Long getParentId() {
         return parentId;
     }
@@ -97,7 +97,7 @@ public class Menu implements Serializable {
         this.parentId = parentId;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public List<Role> getRoles() {
         return roles;
     }

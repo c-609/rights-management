@@ -20,7 +20,8 @@ public interface MenuMapper {
     List<Menu> menuTree();
 
     List<Long> getMenusByRid(Long rid);
-    
+
+    // TODO 可以动态添加
     int addMenu(Menu menu);
     
     int deleteMenuById(@Param("mid") int mid);

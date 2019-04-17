@@ -26,6 +26,15 @@ public class UserServiceTest extends RightsManageApplicationTest {
     }
 
     @Test
+    public void testUpdate() {
+        User user = new User();
+        user.setId(59L);
+        user.setUsername("www");
+        int rowCount = userService.updateUser(user);
+        System.out.println(rowCount);
+    }
+
+    @Test
     public void testDeleteUserByUId() {
         int rowCount = userService.deleteUserByUId(32L);
         System.out.println(rowCount);

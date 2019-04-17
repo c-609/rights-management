@@ -102,8 +102,8 @@
     </select>
     
      <insert id="addMenu">
-    		insert into menu(url,path,component,name,iconCls,requireAuth,parantId)
-    		value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parantId})
+    		insert into menu(url,path,component,name,iconCls,requireAuth,parentId)
+    		value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parentId})
     </insert>
     
     <delete id="deleteMenuById">

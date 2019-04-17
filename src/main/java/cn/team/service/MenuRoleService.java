@@ -27,10 +27,11 @@ public class MenuRoleService {
 
     public int updateMenuRole(Long rid, Long[] mids) {
         menuRoleMapper.deleteMenuByRid(rid);
-        if (mids.length == 0) {
-            return 0;
-        }
+//        if (mids.length == 0) {
+//            return 0;
+//        }
         return menuRoleMapper.addMenu(rid, mids);
     }
+
 
 }

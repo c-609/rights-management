@@ -69,13 +69,15 @@
 	</select> -->
 	<update id="updateUser">
 		update users
-		<if test="user.username!=nill and user.username != ''">
-			username = #{user.username}
-		</if>
-		<if test="user.password =nill and user.password != ''">
-			AND password = #{user.password}
-		</if>
-		where users.id = #{user.id,jdbcType=BIGINT}
+		  <set>
+              <if test="user.username!=null and user.username != ''">
+                  username = #{user.username}
+              </if>
+              <if test="user.password =null and user.password != ''">
+                  AND password = #{user.password}
+              </if>
+              where users.id = #{user.id,jdbcType=BIGINT}
+          </set>
 	</update>
 	
 	<delete id="deleteUserByUId">
