@@ -43,4 +43,10 @@ public class UpmsMenuController {
         return new ResultBean(menuService.updateMenu(menu));
     }
 
+    @RequestMapping(value = "/getMenusByRid", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean<List<Long>> getMenusByRid(Long rid) {
+        return new ResultBean<>(menuService.getMenusByRid(rid));
+    }
+
 }
