@@ -25,7 +25,7 @@
         </collection>
         <collection property="children" ofType="cn.team.bean.Menu">
             <id column="id2" property="id"/>
-            <result column="m2path" property="path" jdbcType="VARCHAR"/>
+            <result column="path2" property="path" jdbcType="VARCHAR"/>
             <result column="component2" property="component" jdbcType="VARCHAR"/>
             <result column="name2" property="name" jdbcType="VARCHAR"/>
             <result column="iconCls2" property="iconCls" jdbcType="VARCHAR"/>
@@ -38,7 +38,7 @@
             <collection property="children" ofType="cn.team.bean.Menu">
                 <id column="id3" property="id"/>
                 <result column="name3" property="name" jdbcType="VARCHAR"/>
-                <result column="m3pash" property="path" jdbcType="VARCHAR"/>
+                <result column="pash3" property="path" jdbcType="VARCHAR"/>
             </collection>
         </collection>
     </resultMap>
