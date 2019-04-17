@@ -30,6 +30,7 @@ public class UpmsUserController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean<Integer> addUser(User user, Long rids[]) {
+        //TODO 想法： 前台传入String类型，后台进行切割
         return new ResultBean(userService.addUser(user, rids));
     }
 

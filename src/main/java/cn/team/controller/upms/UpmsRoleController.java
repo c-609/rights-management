@@ -45,8 +45,8 @@ public class UpmsRoleController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean updateRole(Role role) {
-        return new ResultBean(roleService.updateRole(role));
+    public ResultBean updateRole(Long rid, Long[] mids) {
+        return new ResultBean(menuRoleService.updateMenuRole(rid, mids));
     }
 
     /**
