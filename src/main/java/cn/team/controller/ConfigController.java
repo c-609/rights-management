@@ -29,7 +29,7 @@ public class ConfigController {
         return new ResultBean(menuService.getMenusByUId());
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/user")
     @ResponseBody
     public ResultBean<User> currentUser() {
         return new ResultBean(UserUtil.getCurrentUser());

@@ -11,7 +11,6 @@ import java.io.Serializable;
  * create by yifeng
  */
 @Data
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ResultBean<T> implements Serializable {
 
     private static final long serialVersionUID = 6555201656989268527L;
