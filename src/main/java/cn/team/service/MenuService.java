@@ -29,7 +29,7 @@ public class MenuService {
         return menuMapper.getMenusByUId(UserUtil.getCurrentUser().getId());
     }
 
-    public List<Menu> menuTree() {
+    public List<Menu> getMenuTree() {
         return menuMapper.menuTree();
     }
 

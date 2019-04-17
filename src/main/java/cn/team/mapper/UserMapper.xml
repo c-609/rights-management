@@ -25,7 +25,7 @@
 	</select>
 	<insert id="addUser" parameterType="cn.team.bean.User">
 		insert into users(username,password)
-		value(#{username},#{password})
+		value(#{user.username},#{user.password})
 		</insert>
 
 	<select id="findUserList" resultMap="UserMap">
@@ -49,9 +49,13 @@
         <if test="username!=null and username!=''">
              users.username LIKE '%${username}%'concat('%',#{username},'%')
         </if> -->
-       
+
     </select>
-	
+
+	<select id="findUserIdByUsername" resultType="long" parameterType="string">
+		select id from users where username = #{username}
+	</select>
+
 	<select id="getEmployeeByPageShort" resultMap="UserMap">
 		select * from users
 		ORDER BY users.id limit #{start},#{size}
@@ -74,8 +78,8 @@
 		where users.id = #{user.id,jdbcType=BIGINT}
 	</update>
 	
-	<delete id="deleteUserByUsername">
-		delete from users where users.username=#{username}
+	<delete id="deleteUserByUId">
+		delete from users where users.id=#{id}
 	</delete>
 		
 	 <insert id="addRolesForUser">

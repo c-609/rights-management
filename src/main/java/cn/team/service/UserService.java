@@ -5,10 +5,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import cn.team.bean.Role;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +23,9 @@ import cn.team.mapper.UserMapper;
 public class UserService implements UserDetailsService{
 	@Autowired
 	UserMapper userMapper;
-	
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 //	public User getUserById(int id) {
 //		return userMapper.findUserById(id);
 //	}
@@ -42,26 +47,45 @@ public class UserService implements UserDetailsService{
 	public List<User> getAllUser(){
 		return userMapper.findUserList();
 	}
-	public int addUser(User user) {
-		return userMapper.addUser(user);
+
+	/**
+	 * 增加用户的同时，增加对应的角色
+	 * @param user
+	 * @param rids
+	 * @return
+	 */
+	public int addUser(User user, Long rids[]) {
+		// 密码加密
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userMapper.addUser(user);
+		Long uid = getUserIdByUsername(user.getUsername());
+		int rowCount = addRolesByUId(uid, rids);
+		return rowCount;
 	}
+
 	public User getUserByUsername(String username) {
 		return userMapper.findUserByUsername(username);
 	}
 	public int updateUser(User user) {
 		return userMapper.updateUser(user);
 	}
-	public int deleteUserByUsername(String username) {
-		return userMapper.deleteUserByUsername(username);
+	public int deleteUserByUId(Long uid) {
+		userMapper.deleteRoleByUId(uid);
+		return userMapper.deleteUserByUId(uid);
 	}
-	
-//	public int addRoleForUser(int uId,int[] rids) {
-//		return userMapper.addRolesForUser(uId, rids);
-//	}
-	public int updateRoleForUser(int uId,int[] rids) {
+
+	public int addRolesByUId(Long  UId, Long [] rids) {
+		return userMapper.addRolesForUser(UId, rids);
+	}
+
+	public int updateRoleForUser(Long uId,Long[] rids) {
 		 int i = userMapper.deleteRoleByUId(uId);
 	      return userMapper.addRolesForUser(uId, rids);
 		
+	}
+
+	public Long getUserIdByUsername(String username) {
+		return userMapper.findUserIdByUsername(username);
 	}
 	
 	@Override
@@ -71,7 +95,7 @@ public class UserService implements UserDetailsService{
 	        if (user == null) {
 	            throw new UsernameNotFoundException("用户名不对");
 	        }
-	        //System.out.println(user.getName()+"-----------");
 	        return user;
 	}
+
 }

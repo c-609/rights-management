@@ -28,15 +28,16 @@ public interface UserMapper {
 	int addUser(@Param("user")User user);
 	
 	User findUserByUsername(@Param("username")String username);
+
+	Long findUserIdByUsername(@Param("username") String username);
 	
 	int updateUser(@Param("user")User user);
 	
-	int deleteUserByUsername(@Param("username") String username);
+	int deleteUserByUId(@Param("id") Long uid);
 
+	int deleteRoleByUId(Long UId);
 	
-	int deleteRoleByUId(int UId);
-	
-	int addRolesForUser(@Param("uId") int  uId, @Param("rids") int [] rids);
+	int addRolesForUser(@Param("uId") Long  uId, @Param("rids") Long [] rids);
 
 	//int updateRoleForUser(@Param("urId") int urId,@Param("rid") int rId);
 }

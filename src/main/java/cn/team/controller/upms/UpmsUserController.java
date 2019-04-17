@@ -29,14 +29,14 @@ public class UpmsUserController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<Integer> addUser(User user) {
-        return new ResultBean(userService.addUser(user));
+    public ResultBean<Integer> addUser(User user, Long rids[]) {
+        return new ResultBean(userService.addUser(user, rids));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<Integer> deleteUser(String username) {
-        return new ResultBean(userService.deleteUserByUsername(username));
+    public ResultBean<Integer> deleteUser(Long uid) {
+        return new ResultBean(userService.deleteUserByUId(uid));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)

@@ -40,7 +40,7 @@ public class MenuServceTest extends RightsManageApplicationTest {
 
     @Test
     public void testMenuTree() {
-        List<Menu> list = menuService.menuTree();
+        List<Menu> list = menuService.getMenuTree();
         System.out.println(list);
     }
 
