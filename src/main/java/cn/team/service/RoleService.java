@@ -31,8 +31,7 @@ public class RoleService {
     }
 
     public int updateRole(Role role) {
-
-        return 1;
+        return roleMapper.updateRole(role);
     }
 
     public int deleteRoleById(Long rid) {
