@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="cn.team.bean.Menu">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="url" property="url" jdbcType="VARCHAR"/>
-        <result column="m1path" property="path" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
         <result column="component" property="component" javaType="java.lang.Object"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="iconCls" property="iconCls" jdbcType="VARCHAR"/>
@@ -84,10 +84,10 @@
             m1.path AS m1path,
             m2.`id` AS id2,
             m2.`name` AS name2,
-            m2.path AS m2path,
+            m2.path AS path2,
             m3.`id` AS id3,
             m3.`name` AS name3,
-            m3.path AS m3path
+            m3.path AS path3
         FROM
             menu m1,
             menu m2,
