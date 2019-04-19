@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import cn.team.bean.Role;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -54,7 +53,7 @@ public class UserService implements UserDetailsService{
 	 * @param rids
 	 * @return
 	 */
-	public int addUser(User user, Long rids[]) {
+	public Integer addUser(User user, Long rids[]) {
 		// 密码加密
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userMapper.addUser(user);

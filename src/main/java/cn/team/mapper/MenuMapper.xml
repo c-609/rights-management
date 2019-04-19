@@ -38,17 +38,44 @@
             <collection property="children" ofType="cn.team.bean.Menu">
                 <id column="id3" property="id"/>
                 <result column="name3" property="name" jdbcType="VARCHAR"/>
-                <result column="pash3" property="path" jdbcType="VARCHAR"/>
+                <result column="path3" property="path" jdbcType="VARCHAR"/>
             </collection>
         </collection>
     </resultMap>
     <select id="getAllMenu" resultMap="BaseResultMap">
-          select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnamezh from menu m left join menu_role mr on m.`id`=mr.menu_id left join role r on mr.`role_id`=r.`id` WHERE m.`enabled`=true order by m.`id` desc
- 	</select>
-<!--    <select id="getMenusByUId" parameterType="Long" resultMap="BaseResultMap">
-        select m1.`id`,m1.`path`,m1.`component`,m1.`iconCls`,m1.`name`,m1.`requireAuth`,m2.`component` as component2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`path` as path2,m2.`requireAuth` as requireAuth2 from menu m1,menu m2 
- 		where m1.`id`=m2.`parentId` and m1.`id`!=1 and m2.`id` in(select mr.`menu_id` from user_role u_r,menu_role mr where u_r.`role_id`=mr.`role_id` and u_r.`user_id`=#{UId}) and m2.`enabled`=true order by m1.`id`,m2.`id`
-    </select>-->
+        select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnamezh from menu m left join menu_role mr on m.`id`=mr.menu_id left join role r on mr.`role_id`=r.`id` WHERE m.`enabled`=true order by m.`id` desc
+    </select>
+    <!--    <select id="getMenusByUId" parameterType="Long" resultMap="BaseResultMap">
+            select m1.`id`,m1.`path`,m1.`component`,m1.`iconCls`,m1.`name`,m1.`requireAuth`,m2.`component` as component2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`path` as path2,m2.`requireAuth` as requireAuth2 from menu m1,menu m2
+             where m1.`id`=m2.`parentId` and m1.`id`!=1 and m2.`id` in(select mr.`menu_id` from user_role u_r,menu_role mr where u_r.`role_id`=mr.`role_id` and u_r.`user_id`=#{UId}) and m2.`enabled`=true order by m1.`id`,m2.`id`
+        </select>-->
+    <!--    <select id="getMenusByUId" parameterType="Long" resultMap="BaseResultMap">
+           SELECT
+               m1.`id`,
+               m1.`name`,
+               m1.path AS path,
+               m2.`id` AS id2,
+               m2.`name` AS name2,
+               m2.path AS path2,
+               m3.`id` AS id3,
+               m3.`name` AS name3,
+               m3.path AS path3
+           FROM
+               menu_role,
+               user_role,
+               users,
+               menu m1,
+               menu m2,
+               menu m3
+           WHERE
+               m1.`id` = m2.`parentId`
+             AND m2.`id` = m3.`parentId`
+             and menu_role.role_id=user_role.role_id
+             and users.id=user_role.user_id
+             and users.id=#{UId}
+             AND m3.`enabled` = TRUE
+       </select> -->
+
     <select id="getMenusByUId" parameterType="Long" resultMap="BaseResultMap">
         SELECT
             m1.`id`,
@@ -61,6 +88,7 @@
             m3.`name` AS name3,
             m3.path AS path3
         FROM
+            role,
             menu_role,
             user_role,
             users,
@@ -70,9 +98,11 @@
         WHERE
             m1.`id` = m2.`parentId`
           AND m2.`id` = m3.`parentId`
-          and menu_role.role_id=user_role.role_id
+          and users.id=#{Uid}
           and users.id=user_role.user_id
-          and users.id=#{UId}
+          and user_role.role_id=role.id
+          and role.id = menu_role.role_id
+          and m3.id=menu_role.menu_id
           AND m3.`enabled` = TRUE
     </select>
 
@@ -81,7 +111,7 @@
         SELECT
             m1.`id`,
             m1.`name`,
-            m1.path AS m1path,
+            m1.path AS path,
             m2.`id` AS id2,
             m2.`name` AS name2,
             m2.path AS path2,
@@ -95,44 +125,60 @@
         WHERE
             m1.`id` = m2.`parentId`
           AND m2.`id` = m3.`parentId`
+
+    </select>
+    <!--  <select id="getMenusByRid" resultType="Long">
+         SELECT menu_id from menu_role WHERE role_id=#{rid}
+     </select> -->
+
+    <select id="getMenusByRid" resultType="Long">
+        SELECT
+            m3.`id`
+        FROM
+            menu_role,
+            menu m1,
+            menu m2,
+            menu m3
+        WHERE
+            m1.`id` = m2.`parentId`
+          AND m2.`id` = m3.`parentId`
+          and menu_role.role_id=#{rid}
+          and m3.id=menu_role.menu_id
           AND m3.`enabled` = TRUE
     </select>
-    <select id="getMenusByRid" resultType="Long">
-        SELECT menu_id from menu_role WHERE role_id=#{rid}
-    </select>
-    
-     <insert id="addMenu">
-    		insert into menu(url,path,component,name,iconCls,requireAuth,parentId)
-    		value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parentId})
+
+    <insert id="addMenu">
+        insert into menu(url,path,component,name,iconCls,requireAuth,parantId)
+            value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parantId})
     </insert>
-    
+
     <delete id="deleteMenuById">
-    	delete from menu where menu.id=#{mid}
+        delete from menu where menu.id=#{mid}
     </delete>
 
     <update id="updateMenu">
         update menu
-          <set>
-              <if test="menu.url!=null and menu.url != ''">
-                  url = #{menu.url},
-              </if>
-              <if test="menu.path !=null and menu.path != ''">
-                  path = #{menu.path},
-              </if>
-              <if test="menu.component !=null and menu.component != ''">
-                  component = #{menu.component},
-              </if>
-              <if test="menu.name !=null and menu.name != ''">
-                  name = #{menu.name},
-              </if>
-              <if test="menu.parentId !=null and menu.parentId != ''">
-                  parentId = #{menu.parentId},
-              </if>
-              <if test="menu.iconCls !=null and menu.iconCls != ''">
-                  iconCls = #{menu.iconCls}
-              </if>
-          </set>
+        <set>
+            <if test="menu.url!=null and menu.url != ''">
+                url = #{menu.url},
+            </if>
+            <if test="menu.path !=null and menu.path != ''">
+                path = #{menu.path},
+            </if>
+            <if test="menu.component !=null and menu.component != ''">
+                component = #{menu.component},
+            </if>
+            <if test="menu.name !=null and menu.name != ''">
+                name = #{menu.name},
+            </if>
+            <if test="menu.parentId !=null and menu.parentId != ''">
+                parentId = #{menu.parentId},
+            </if>
+            <if test="menu.iconCls !=null and menu.iconCls != ''">
+                iconCls = #{menu.iconCls}
+            </if>
+        </set>
         where menu.id = #{menu.id,jdbcType=BIGINT}
     </update>
-    
+
 </mapper>
