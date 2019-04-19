@@ -18,6 +18,7 @@ import java.util.Iterator;
  */
 @Component
 public class UrlAccessDecisionManager implements AccessDecisionManager {
+    // 决定当前用户可访问的页面
     @Override
     public void decide(Authentication auth, Object o, Collection<ConfigAttribute> cas){
         Iterator<ConfigAttribute> iterator = cas.iterator();
