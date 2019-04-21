@@ -21,8 +21,14 @@ public class UpmsMenuController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public ResultBean<List<Menu>> getAllMenu() {
+    public ResultBean<List<Menu>> getAllMenuTree() {
         return new ResultBean(menuService.getMenuTree());
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultBean<List<Menu>> getAllList() {
+        return new ResultBean(menuService.getAllMenu());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
