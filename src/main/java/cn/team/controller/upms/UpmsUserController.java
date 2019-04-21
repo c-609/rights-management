@@ -1,7 +1,9 @@
 package cn.team.controller.upms;
 
+import cn.team.bean.Menu;
 import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
+import cn.team.service.MenuService;
 import cn.team.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ public class UpmsUserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MenuService menuService;
 
     @RequestMapping("/")
     @ResponseBody
@@ -40,6 +45,12 @@ public class UpmsUserController {
     @ResponseBody
     public ResultBean<Integer> updateUser(@RequestBody User user) {
         return new ResultBean(userService.updateUser(user));
+    }
+
+    @RequestMapping(value = "/menuTree", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean<List<Menu>> sysmenu(Long uid) {
+        return new ResultBean(menuService.getMenuTreeByUId(uid));
     }
 
 }

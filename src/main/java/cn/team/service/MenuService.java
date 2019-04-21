@@ -25,6 +25,10 @@ public class MenuService {
         return menuMapper.getAllMenu();
     }
 
+    public List<Menu> getMenuTreeByUId(Long uid) {
+        return menuMapper.getMenusByUId(uid);
+    }
+
     public List<Menu> getMenusByUId() {
         return menuMapper.getMenusByUId(UserUtil.getCurrentUser().getId());
     }

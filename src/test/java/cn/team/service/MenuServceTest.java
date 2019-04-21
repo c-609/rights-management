@@ -32,6 +32,12 @@ public class MenuServceTest extends RightsManageApplicationTest {
     }
 
     @Test
+    public void testGetMenuTreeByUid() {
+        List<Menu> menuList = menuService.getMenuTreeByUId(76L);
+        System.out.println(menuList);
+    }
+
+    @Test
     public void testUpdate() {
         Menu menu = new Menu();
         menu.setId(232L);
