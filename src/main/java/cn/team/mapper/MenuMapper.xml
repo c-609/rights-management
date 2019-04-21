@@ -81,6 +81,7 @@
             m1.`id`,
             m1.`name`,
             m1.path AS path,
+            m1.iconCls,
             m2.`id` AS id2,
             m2.`name` AS name2,
             m2.path AS path2,

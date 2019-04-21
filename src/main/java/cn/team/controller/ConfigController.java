@@ -46,4 +46,10 @@ public class ConfigController {
        return new ResultBean(roleService.roles());
     }
 
+    @RequestMapping(value = "/menuIdByRid", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean<List<Long>> getMenusByRid(Long rid) {
+        return new ResultBean<>(menuService.getMenusByRid(rid));
+    }
+
 }
