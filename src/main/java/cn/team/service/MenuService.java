@@ -26,11 +26,11 @@ public class MenuService {
     }
 
     public List<Menu> getMenuTreeByUId(Long uid) {
-        return menuMapper.getMenusByUId(uid);
+        return menuMapper.getMenuTreeByUId(uid);
     }
 
     public List<Menu> getMenusByUId() {
-        return menuMapper.getMenusByUId(UserUtil.getCurrentUser().getId());
+        return menuMapper.listByUid(UserUtil.getCurrentUser().getId());
     }
 
     public List<Menu> getMenuTree() {

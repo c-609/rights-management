@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login_p")
                 // 自定义登录请求，对应表单中的action
-                // 可在postman中发送 post请求 http://localhost:8060/login?username=asdf123&password=123456
+                // 可在postman中发送 post请求 http://localhost:8088/login?username=asdf123&password=123456
                 .loginProcessingUrl("/login")
                 .usernameParameter("username").passwordParameter("password")
                 .failureHandler(new AuthenticationFailureHandler() {
@@ -87,7 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationFailure(HttpServletRequest req,
                                                         HttpServletResponse resp,
                                                         AuthenticationException e) throws IOException {
+//                        resp.setContentType();
                         resp.setContentType("application/json;charset=utf-8");
+                        resp.setStatus(401);
                         ResultBean resultBean = new ResultBean();
                         resultBean.setCode(ResultBean.CHECK_FAIL);
                         resultBean.setMsg("fail");

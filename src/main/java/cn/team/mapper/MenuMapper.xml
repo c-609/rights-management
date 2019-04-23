@@ -76,7 +76,25 @@
              AND m3.`enabled` = TRUE
        </select> -->
 
-    <select id="getMenusByUId" parameterType="Long" resultMap="BaseResultMap">
+    <select id="listByUid" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            m1.*
+        FROM
+            role,
+            menu_role,
+            user_role,
+            users,
+            menu m1
+        WHERE
+            users.id=#{id}
+          and users.id=user_role.user_id
+          and user_role.role_id=role.id
+          and role.id = menu_role.role_id
+          and m1.id=menu_role.menu_id
+          AND m1.`enabled` = TRUE
+    </select>
+
+    <select id="getMenuTreeByUId" parameterType="Long" resultMap="BaseResultMap">
         SELECT
             m1.`id`,
             m1.`name`,
@@ -149,8 +167,8 @@
     </select>
 
     <insert id="addMenu">
-        insert into menu(url,path,component,name,iconCls,requireAuth,parantId)
-            value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parantId})
+        insert into menu(url,path,component,name,iconCls,requireAuth,parentId)
+            value(#{url},#{path},#{component},#{name},#{iconCls},1,#{parentId})
     </insert>
 
     <delete id="deleteMenuById">

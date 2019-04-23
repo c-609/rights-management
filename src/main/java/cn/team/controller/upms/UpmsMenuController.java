@@ -3,9 +3,12 @@ package cn.team.controller.upms;
 import cn.team.bean.Menu;
 import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
+import cn.team.dto.MenuTree;
 import cn.team.service.MenuService;
+import cn.team.vo.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.List;
 
@@ -19,12 +22,27 @@ public class UpmsMenuController {
     @Autowired
     private MenuService menuService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ResponseBody
-    public ResultBean<List<Menu>> getAllMenuTree() {
-        return new ResultBean(menuService.getMenuTree());
+    /**
+     * 返回当前用户的树型菜单
+     * @return 当前用户的树形菜单
+     */
+    @GetMapping
+//    @ResponseBody
+    public ResultBean<List<MenuTree>> getUserMenu() {
+        List menuList = menuService.getMenusByUId();
+        return new ResultBean(TreeUtil.buildTree(menuList, -1));
     }
 
+    /**
+     * 返回树形菜单集合
+     * @return 树形菜单
+     */
+    @GetMapping(value = "/tree")
+    public ResultBean getTree() {
+        return new ResultBean(TreeUtil.buildTree(menuService.getAllMenu(), -1));
+    }
+
+    //TODO 将废弃
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public ResultBean<List<Menu>> getAllList() {

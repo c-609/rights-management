@@ -2,7 +2,9 @@ package cn.team.service;
 
 import cn.team.RightsManageApplicationTest;
 import cn.team.bean.Menu;
+import cn.team.dto.MenuTree;
 import cn.team.mapper.MenuMapper;
+import cn.team.vo.TreeUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -20,9 +22,9 @@ public class MenuServceTest extends RightsManageApplicationTest {
 
     @Test
     public void testGetMenuByUId() {
-//        List<Menu> list = menuService.getMenusByUId();
+        List<Menu> list = menuService.getMenusByUId();
 
-//        System.out.println(list);
+        System.out.println(list);
     }
 
     @Test
@@ -40,7 +42,7 @@ public class MenuServceTest extends RightsManageApplicationTest {
     @Test
     public void testUpdate() {
         Menu menu = new Menu();
-        menu.setId(232L);
+        menu.setId(232);
         menu.setName("你好帅");
         int rowCount = menuService.updateMenu(menu);
         System.out.println(rowCount);
@@ -48,7 +50,10 @@ public class MenuServceTest extends RightsManageApplicationTest {
 
     @Test
     public void testMenuTree() {
-        List<Menu> list = menuService.getMenuTree();
+//        List<Menu> list = menuService.getMenuTree();
+        List<Menu> menuList = menuService.getAllMenu();
+        List<MenuTree> list = TreeUtil.buildTree(menuList, -1);
+
         System.out.println(list);
     }
 
@@ -57,7 +62,7 @@ public class MenuServceTest extends RightsManageApplicationTest {
         // {url},#{path},#{component},#{name},#{iconCls},1,#{parantId}
         Menu menu = new Menu();
         menu.setName("12");
-        menu.setParentId(4L);
+        menu.setParentId(4);
         menu.setUrl("1");
         menu.setPath("111");
         menu.setComponent("111");
@@ -71,7 +76,7 @@ public class MenuServceTest extends RightsManageApplicationTest {
 //    @Rollback
     public void testUpdateMenu() {
         Menu menu = new Menu();
-        menu.setId(236L);
+        menu.setId(262);
         menu.setName("测试");
         int rowCount = menuService.updateMenu(menu);
         System.out.println(rowCount);

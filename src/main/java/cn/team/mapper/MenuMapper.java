@@ -15,7 +15,9 @@ import cn.team.bean.Menu;
 public interface MenuMapper {
     List<Menu> getAllMenu();
 
-    List<Menu> getMenusByUId(Long Uid);
+    List<Menu> listByUid(@Param("id") Long uid);
+
+    List<Menu> getMenuTreeByUId(Long Uid);
 
     List<Menu> menuTree();
 
