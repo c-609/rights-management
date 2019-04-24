@@ -25,6 +25,15 @@ public class MenuService {
         return menuMapper.getAllMenu();
     }
 
+    /**
+     * 获取menu list集合
+     * @return list 集合，仅menu
+     */
+    public List<Menu> list() {
+        return menuMapper.list();
+    }
+
+
     public List<Menu> getMenuTreeByUId(Long uid) {
         return menuMapper.getMenuTreeByUId(uid);
     }
@@ -34,10 +43,11 @@ public class MenuService {
     }
 
     public List<Menu> getMenuTree() {
-        return menuMapper.menuTree();
+        return menuMapper.list();
     }
 
-    public List<Long> getMenusByRid(Long rid) {
+    public List<Menu> getMenusByRid(Long rid) {
+
         return menuMapper.getMenusByRid(rid);
     }
 

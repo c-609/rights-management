@@ -17,11 +17,13 @@ public interface MenuMapper {
 
     List<Menu> listByUid(@Param("id") Long uid);
 
+    List<Menu> list();
+
     List<Menu> getMenuTreeByUId(Long Uid);
 
     List<Menu> menuTree();
 
-    List<Long> getMenusByRid(Long rid);
+    List<Menu> getMenusByRid(Long rid);
 
     // TODO 可以动态添加
     int addMenu(Menu menu);

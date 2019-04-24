@@ -4,6 +4,7 @@ import cn.team.bean.Menu;
 import cn.team.dto.MenuTree;
 import cn.team.dto.TreeNode;
 import lombok.experimental.UtilityClass;
+import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +41,88 @@ public class TreeUtil {
                     treeNode.add(it);
                 }
             }
-
         }
         return trees;
     }
 
+    /**
+     * 递归查找子节点
+     * @param treeNode
+     * @param TreeNodes
+     * @param <T>
+     * @return
+     */
+    public <T extends TreeNode> T findChildren(T treeNode, List<T> TreeNodes) {
+        for (T node : TreeNodes) {
+            if(treeNode.getId() == node.getParentId()) {
+                if(treeNode.getChildren() == null) {
+                    treeNode.setChildren(new ArrayList<>());
+                }
+                treeNode.add(findChildren(node, treeNode.getChildren()));
+            }
+        }
+        return treeNode;
+    }
+
+    /**
+     * 递归查找叶子节点（非根）
+     * @param trees 树
+     * @param <T>
+     * @return
+     */
+    public <T extends TreeNode> List<T> findLeafNode(List<T> trees) {
+        List<T> list = new ArrayList<>();
+        for (T it : trees) {
+            if(it.getChildren().size() == 0) {
+                list.add(it);
+//                return list;
+                continue;
+            }
+            findLeafNode(it.getChildren()).stream().forEach(item ->
+            {
+                list.add((T)item);
+            });
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        TreeNode treeNode1 = new TreeNode();
+        TreeNode treeNode2 = new TreeNode();
+        TreeNode treeNode3 = new TreeNode();
+        TreeNode treeNode4 = new TreeNode();
+        TreeNode treeNode5 = new TreeNode();
+
+        treeNode1.setId(1);
+        treeNode2.setId(2);
+        treeNode3.setId(3);
+        treeNode4.setId(4);
+        treeNode5.setId(5);
+
+        treeNode1.setParentId(-1);
+        treeNode2.setParentId(-1);
+        treeNode3.setParentId(2);
+        treeNode4.setParentId(2);
+        treeNode5.setParentId(1);
+
+        List treeNodes = new ArrayList();
+        treeNodes.add(treeNode1);
+        treeNodes.add(treeNode2);
+        treeNodes.add(treeNode3);
+        treeNodes.add(treeNode4);
+        treeNodes.add(treeNode5);
+        List<TreeNode> tree = buildByLoop(treeNodes, -1);
+//        TreeNode treeNodeP = findChildren(treeNode2, tree);
+        List<TreeNode> leafNodes = findLeafNode(tree);
+        System.out.println(leafNodes);
+    }
+
+    /**
+     * 通过menu创建树节点
+     * @param menus
+     * @param root
+     * @return
+     */
     public List<MenuTree> buildTree(List<Menu> menus, int root) {
         List<MenuTree> trees = new ArrayList<>();
         MenuTree node;
@@ -59,6 +137,5 @@ public class TreeUtil {
         }
         return TreeUtil.buildByLoop(trees, root);
     }
-
 
 }

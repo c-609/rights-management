@@ -22,6 +22,7 @@ public class UpmsMenuController {
     @Autowired
     private MenuService menuService;
 
+
     /**
      * 返回当前用户的树型菜单
      * @return 当前用户的树形菜单
@@ -31,6 +32,11 @@ public class UpmsMenuController {
     public ResultBean<List<MenuTree>> getUserMenu() {
         List menuList = menuService.getMenusByUId();
         return new ResultBean(TreeUtil.buildTree(menuList, -1));
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ResultBean<List<MenuTree>> getMenu() {
+        return new ResultBean(menuService.list());
     }
 
     /**
@@ -69,7 +75,7 @@ public class UpmsMenuController {
 
     @RequestMapping(value = "/getMenusByRid", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<List<Long>> getMenusByRid(Long rid) {
+    public ResultBean<List<Menu>> getMenusByRid(Long rid) {
         return new ResultBean<>(menuService.getMenusByRid(rid));
     }
 

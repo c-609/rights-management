@@ -45,6 +45,25 @@
     <select id="getAllMenu" resultMap="BaseResultMap">
         select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnamezh from menu m left join menu_role mr on m.`id`=mr.menu_id left join role r on mr.`role_id`=r.`id` WHERE m.`enabled`=true order by m.`id` desc
     </select>
+
+    <resultMap id="MenuMap" type="cn.team.bean.Menu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="component" property="component" javaType="java.lang.Object"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="iconCls" property="iconCls" jdbcType="VARCHAR"/>
+        <result column="parentId" property="parentId" jdbcType="INTEGER"/>
+
+        <association property="meta" javaType="cn.team.bean.MenuMeta">
+            <result column="keepAlive" property="keepAlive"/>
+            <result column="requireAuth" property="requireAuth"/>
+        </association>
+    </resultMap>
+
+    <select id="list" resultMap="MenuMap" >
+        select * from menu
+    </select>
     <!--    <select id="getMenusByUId" parameterType="Long" resultMap="BaseResultMap">
             select m1.`id`,m1.`path`,m1.`component`,m1.`iconCls`,m1.`name`,m1.`requireAuth`,m2.`component` as component2,m2.`iconCls` as iconCls2,m2.`keepAlive` as keepAlive2,m2.`name` as name2,m2.`path` as path2,m2.`requireAuth` as requireAuth2 from menu m1,menu m2
              where m1.`id`=m2.`parentId` and m1.`id`!=1 and m2.`id` in(select mr.`menu_id` from user_role u_r,menu_role mr where u_r.`role_id`=mr.`role_id` and u_r.`user_id`=#{UId}) and m2.`enabled`=true order by m1.`id`,m2.`id`
@@ -150,20 +169,18 @@
          SELECT menu_id from menu_role WHERE role_id=#{rid}
      </select> -->
 
-    <select id="getMenusByRid" resultType="Long">
+
+
+    <select id="getMenusByRid" resultMap="MenuMap">
         SELECT
-            m3.`id`
+            menu.*
         FROM
             menu_role,
-            menu m1,
-            menu m2,
-            menu m3
+             menu
         WHERE
-            m1.`id` = m2.`parentId`
-          AND m2.`id` = m3.`parentId`
-          and menu_role.role_id=#{rid}
-          and m3.id=menu_role.menu_id
-          AND m3.`enabled` = TRUE
+          menu.id = menu_role.menu_id
+        and
+          menu_role.role_id = #{rid}
     </select>
 
     <insert id="addMenu">
