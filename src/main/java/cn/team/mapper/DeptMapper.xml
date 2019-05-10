@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.team.mapper.DeptMapper">
+	<resultMap type="cn.team.bean.Dept" id="DeptMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	
+	<resultMap type="cn.team.bean.User" id="UserMap">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<collection property="roles" ofType="cn.team.bean.Role">
+			<id column="role_id" property="id"/>
+			<result column="role_name" property="name"/>
+			<result column="nameZh" property="nameZh"/>
+		</collection>	
+		<collection property="depts" ofType="cn.team.bean.Dept">
+			<id column="dept_id" property="id"/>
+			<result column="dept_name" property="name"/>
+		</collection>
+		
+	</resultMap>
+
+	<select id="getDeptById" parameterType="int" resultMap="DeptMap">
+		select * from dept
+		where id = #{id}
+	</select>
+	
+	<select id="getAllUserByDeptId" resultMap="UserMap">
+		select users.id,users.username,users.password,role.id as role_id,role.name as role_name,role.nameZh,dept.id as dept_id,dept.name as dept_name from users,user_role,role,dept,dept_role
+		where users.id=user_role.user_id and user_role.role_id=role.id
+		and user_role.role_id = dept_role.role_id
+		and dept_role.dept_id = dept.id
+		and dept.id = #{id}
+	</select>
+	
+	
+	<select id="getAllDept" resultMap="DeptMap">
+		select * from dept
+	</select>
+
+	<insert id="addDept">
+		insert into dept(name,parentId)
+		value(#{name},#{parentId})
+	</insert>
+	
+	<update id="updateDept">
+		 update dept
+        <set>
+            <if test="name!=null and name != ''">
+                name = #{name},
+            </if>
+            <if test="parentId !=null and parentId != ''">
+                parentId = #{parentId},
+            </if>
+            <if test="status !=null and status != ''">
+                status = #{status},
+            </if>
+            <!--<if test="createTime !=null and createTime != ''">-->
+                <!--createTime = #{createTime},-->
+            <!--</if>-->
+			<if test="createTime !=null">
+				createTime = #{createTime},
+			</if>
+            <if test="updateTime !=null">
+                updateTime = #{updateTime}
+            </if>
+ 
+        </set>
+        where dept.id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteDeptById">
+		delete from dept where dept.id = #{id}
+	</delete>
+
+	<!-- 删除部门对应的角色 -->
+	<delete id = "deleteRoleByDeptId">
+		delete from dept_role where dept_id=#{dId}
+	</delete>
+
+	<!-- 添加部门与角色 -->
+	<insert id = "addRoleForDept">
+		INSERT INTO dept_role(dept_id,role_id) VALUES
+		<foreach collection="rIds" separator="," item="rid">
+			(#{dId},#{rid})
+		</foreach>
+	</insert>
+
+
+
+
+</mapper>
