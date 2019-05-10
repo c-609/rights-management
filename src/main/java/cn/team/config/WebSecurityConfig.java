@@ -1,10 +1,10 @@
 package cn.team.config;
 
-import cn.team.common.util.UserUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cn.team.common.beans.ResultBean;
+import cn.team.common.util.UserUtil;
 import cn.team.exception.AuthenticationAccessDeniedHandler;
 import cn.team.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -128,7 +127,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        resp.setStatus(400);
                         resp.setContentType("application/json;charset=utf-8");
                         ResultBean<Object> resultBean = new ResultBean<Object>(UserUtil.getCurrentUser());
-                        System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails());
+                        System.out.println(auth.getDetails());
                         Long userId = UserUtil.getCurrentUser().getId();
                         UserUtil.setUser(userId.toString());
                         resultBean.setCode(0);

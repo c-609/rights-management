@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
+@Data
 public class User implements UserDetails{
 	private long id;
 	private String username;
@@ -51,7 +52,7 @@ public class User implements UserDetails{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-	@JsonIgnore
+//	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();

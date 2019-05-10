@@ -93,8 +93,7 @@ public class UserService implements UserDetailsService{
 		if (user == null) {
 			throw new UsernameNotFoundException("用户名不对");
 		}
-		 Collection collection = user.getAuthorities();
-	        return user;
+		return user;
 	}
 
 }

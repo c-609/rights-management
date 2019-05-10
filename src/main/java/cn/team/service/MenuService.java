@@ -52,6 +52,9 @@ public class MenuService {
     }
 
     public int addMunu(Menu menu) {
+        if (menu.getParentId() == null || menu.getParentId() == 0) {
+            menu.setParentId(-1);
+        }
         return menuMapper.addMenu(menu);
     }
 
