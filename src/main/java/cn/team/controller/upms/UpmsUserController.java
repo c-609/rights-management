@@ -53,4 +53,10 @@ public class UpmsUserController {
         return new ResultBean(menuService.getMenuTreeByUId(uid));
     }
 
+    @RequestMapping(value = "/getListByDeptId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultBean<List<User>> getByDeptId(int deptId) {
+        return new ResultBean<>(userService.getUserlistByDeptId(deptId));
+    }
+
 }

@@ -20,4 +20,11 @@ public interface RoleMapper {
     List<User> findUserByRoleId(@Param("rid") int rid);
     
     int updateRole(Role role);
+
+    List<Role> findRolesByDeptid(@Param("deptId") int deptId);
+
+    int updateDeptAuthForRole(@Param("rid") int rid, @Param("dids") int[] deptIds);
+
+    int deleteDeptAuthForRole(@Param("rid") int roleId);
+
 }

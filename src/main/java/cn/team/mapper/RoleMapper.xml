@@ -21,4 +21,25 @@
     <update id="updateRole">
     	update role set role.name=#{name},role.nameZh=#{nameZh} where role.id=#{id}
     </update>
+
+    <!-- 使用内连接 查询的字段需要优化 -->
+    <select id="findRolesByDeptid" resultType="cn.team.bean.Role" >
+        select * from dept_role
+                          inner join role
+                                     on dept_role.role_id = role.id
+        where dept_role.dept_id = #{deptId}
+    </select>
+
+    <insert id="updateDeptAuthForRole">
+    INSERT INTO dept_role(role_id, dept_id) VALUES
+    <foreach collection="dids" item="did" separator=",">
+        (#{rid},#{did})
+    </foreach>
+    </insert>
+
+    <delete id="deleteDeptAuthForRole">
+        delete from dept_role where role_id=#{rid}
+    </delete>
+
+
 </mapper>

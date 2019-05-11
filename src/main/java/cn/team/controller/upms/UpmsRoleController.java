@@ -7,10 +7,7 @@ import cn.team.service.MenuRoleService;
 import cn.team.service.RoleService;
 import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * create by yifeng
@@ -59,6 +56,17 @@ public class UpmsRoleController {
     @ResponseBody
     public ResultBean setRoleAuth(Long rid, Long[] mids) {
         return new ResultBean(menuRoleService.updateMenuRole(rid, mids));
+    }
+
+    /**
+     * 为角色赋予部门权限
+     * @param rid 角色id
+     * @param deptIds 部门id列表
+     * @return
+     */
+    @PostMapping("/deptAuthForRole")
+    public ResultBean deptAuthForRole(int rid, int[] deptIds) {
+        return new ResultBean(roleService.updateDeptAuthForRole(rid, deptIds));
     }
 
 }

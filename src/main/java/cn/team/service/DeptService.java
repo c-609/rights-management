@@ -60,6 +60,8 @@ public class DeptService {
 		return deptMapper.addDept(dept);
     }
 
+
+
 	/**
 	 * 查询全部部门树
 	 * @return

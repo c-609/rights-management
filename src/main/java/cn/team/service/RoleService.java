@@ -34,11 +34,26 @@ public class RoleService {
         return roleMapper.updateRole(role);
     }
 
+    // 更新角色的部门权限
+    public int updateDeptAuthForRole (int rid, int[] deptIds) {
+        // 先删除角色对应的权限
+        deleteDeptAuthForRole(rid);
+        return roleMapper.updateDeptAuthForRole(rid, deptIds);
+    }
+
+    public int deleteDeptAuthForRole(int rid) {
+        return roleMapper.deleteDeptAuthForRole(rid);
+    }
+
     public int deleteRoleById(Long rid) {
         return roleMapper.deleteRoleById(rid);
     }
     
     public List<User> getUserByRoleId(int rid){
     	return roleMapper.findUserByRoleId(rid);
+    }
+
+    public List<Role> findRolesByDeptid(int deptId) {
+        return roleMapper.findRolesByDeptid(deptId);
     }
 }

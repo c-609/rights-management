@@ -53,6 +53,20 @@ public class ConfigController {
        return new ResultBean(roleService.roles());
     }
 
+    @RequestMapping(value = "/getDeptIdByRoles")
+    @ResponseBody
+    public ResultBean getDeptIdByRoles(int deptId) {
+        return new ResultBean(roleService.findRolesByDeptid(deptId));
+    }
+
+    @RequestMapping(value = "/getRoleIdByDepts")
+    @ResponseBody
+    public ResultBean getRoleIdByDepts(int roleId) {
+        // TODO
+        return new ResultBean();
+    }
+
+
     @RequestMapping(value = "/allmenuTree", method = RequestMethod.GET)
     @ResponseBody
     public ResultBean<List<Menu>> allMenu() {

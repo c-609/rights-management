@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.team.bean.Role;
+import cn.team.mapper.DeptMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +23,9 @@ import cn.team.mapper.UserMapper;
 public class UserService implements UserDetailsService{
 	@Autowired
 	UserMapper userMapper;
+
+	@Autowired
+	DeptMapper deptMapper;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -94,6 +98,10 @@ public class UserService implements UserDetailsService{
 			throw new UsernameNotFoundException("用户名不对");
 		}
 		return user;
+	}
+
+	public List<User> getUserlistByDeptId(int deptId) {
+		return deptMapper.getAllUserByDeptId(deptId);
 	}
 
 }

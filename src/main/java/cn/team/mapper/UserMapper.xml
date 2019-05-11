@@ -13,15 +13,21 @@
 			<id column="role_id" property="id"/>
 			<result column="role_name" property="name"/>
 			<result column="nameZh" property="nameZh"/>
-		</collection>	
+		</collection>
+		<collection property="depts" ofType="cn.team.bean.Dept">
+			<id column="dept_id" property="id"/>
+			<result column="dept_name" property="name"/>
+		</collection>
 	</resultMap>
-	
+
 	<select id="findUserByUsername" resultMap="UserMap">
-		select users.*,role.id as role_id,role.name as role_name,role.nameZh from users,user_role,role
+		select users.*,role.id as role_id,role.name as role_name,role.nameZh,dept.id as dept_id,dept.name as dept_name from users,user_role,role,dept,dept_role
 		where
-		users.id = user_role.user_id and
-		role.id = user_role.role_id and
-		users.username = #{username}
+			users.id = user_role.user_id and
+			role.id = user_role.role_id and
+			role.id = dept_role.role_id and
+			dept.id = dept_role.dept_id and
+			users.username = #{username}
 	</select>
 	<insert id="addUser" parameterType="cn.team.bean.User">
 		insert into users(username,password)
@@ -29,8 +35,10 @@
 		</insert>
 
 	<select id="findUserList" resultMap="UserMap">
-		select users.id,users.username,users.password,role.id as role_id,role.name as role_name,role.nameZh from users,user_role,role
+		select users.id,users.username,users.password,role.id as role_id,role.name as role_name,role.nameZh,dept.id as dept_id,dept.name as dept_name from users,user_role,role,dept,dept_role
 		where users.id=user_role.user_id and user_role.role_id=role.id
+		  and user_role.role_id = dept_role.role_id
+		  and dept_role.dept_id = dept.id
 	</select>
 
 	
