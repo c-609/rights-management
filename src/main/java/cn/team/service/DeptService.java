@@ -60,8 +60,6 @@ public class DeptService {
 		return deptMapper.addDept(dept);
     }
 
-
-
 	/**
 	 * 查询全部部门树
 	 * @return
@@ -91,6 +89,15 @@ public class DeptService {
 				return node;
 			}).collect(Collectors.toList());
     	return TreeUtil.buildByLoop(treeList, -1);
+	}
+
+	/**
+	 * 根据角色id查询 部门列表
+	 * @param roleId
+	 * @return
+	 */
+	public List<Dept> findDeptsByRoleid(int roleId) {
+		return deptMapper.findDeptsByRoleid(roleId);
 	}
 
 }

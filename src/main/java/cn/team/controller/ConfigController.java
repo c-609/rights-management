@@ -1,19 +1,19 @@
 package cn.team.controller;
 
+import cn.team.bean.Dept;
 import cn.team.bean.Menu;
 import cn.team.bean.Role;
 import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
 import cn.team.common.util.UserUtil;
 import cn.team.dto.MenuTree;
+import cn.team.service.DeptService;
 import cn.team.service.MenuService;
 import cn.team.service.RoleService;
 import cn.team.vo.TreeUtil;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,9 @@ public class ConfigController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private DeptService deptService;
 
     /**
      * 返回树形菜单
@@ -59,11 +62,16 @@ public class ConfigController {
         return new ResultBean(roleService.findRolesByDeptid(deptId));
     }
 
-    @RequestMapping(value = "/getRoleIdByDepts")
+    @GetMapping(value = "/findDeptsByRoleid")
     @ResponseBody
     public ResultBean getRoleIdByDepts(int roleId) {
-        // TODO
-        return new ResultBean();
+        // 转换成id数组返回给前端
+        List<Dept> deptList = deptService.findDeptsByRoleid(roleId);
+        var resultList = new ArrayList<Integer>(deptList.size());
+        deptList.stream().forEach(node -> {
+            resultList.add(node.getId());
+        });
+        return new ResultBean(resultList);
     }
 
 

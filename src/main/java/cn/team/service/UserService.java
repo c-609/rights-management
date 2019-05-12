@@ -29,9 +29,6 @@ public class UserService implements UserDetailsService{
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-//	public User getUserById(int id) {
-//		return userMapper.findUserById(id);
-//	}
 	
 	public List<User> getAllUserByPage(Integer page, Integer size, String username){
 		int start = (page - 1) * size;

@@ -15,36 +15,12 @@ public class User implements UserDetails{
 	private long id;
 	private String username;
 	private String password;
+	private String status;
 	
 	private List<Role> roles;
 	private List<Menu> menus;
 	private List<Dept> depts;
 
-	public List<Dept> getDepts() {
-		return depts;
-	}
-	public void setDepts(List<Dept> depts) {
-		this.depts = depts;
-	}
-	public List<Menu> getMenus() {
-		return menus;
-	}
-	public void setMenus(List<Menu> menus) {
-		this.menus = menus;
-	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-
-		this.username = username;
-	}
 	@JsonIgnore
 	public String getPassword() {
 		return password;

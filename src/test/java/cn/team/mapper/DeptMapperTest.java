@@ -24,5 +24,11 @@ public class DeptMapperTest extends RightsManageApplicationTest {
         System.out.println(dept.getName());
     }
 
+    @Test
+    public void testFindDeptsByRoleid() {
+        List<Dept> deptList = deptMapper.findDeptsByRoleid(1);
+        System.out.println(deptList);
+    }
+
 
 }

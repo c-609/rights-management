@@ -25,4 +25,6 @@ public interface DeptMapper {
 	int addRoleForDept(@Param("dId") int dId,@Param("rIds") int[] rIds);
 
 	int deleteRoleByDeptId(@Param("dId") int dId);
+
+	List<Dept> findDeptsByRoleid(@Param("rid") int rid);
 }
