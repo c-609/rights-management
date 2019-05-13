@@ -90,12 +90,14 @@ public class UserService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
 		 User user = userMapper.findUserByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("用户名不对");
 		}
 		return user;
 	}
+
 
 	public List<User> getUserlistByDeptId(int deptId) {
 		return deptMapper.getAllUserByDeptId(deptId);

@@ -1,6 +1,7 @@
 package cn.team.exception;
 
 
+import cn.team.common.constant.CommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,10 +26,10 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
         ModelAndView mv = new ModelAndView(new MappingJackson2JsonView());
         ResultBean<String> resultBean = new ResultBean<>();
         if (e instanceof DataIntegrityViolationException) {
-            resultBean.setCode(ResultBean.CHECK_FAIL);
+            resultBean.setCode(CommonConstants.CHECK_FAIL);
             resultBean.setData("该角色尚有关联的资源或用户，删除失败!");
         }  else {
-            resultBean.setCode(ResultBean.CHECK_FAIL);
+            resultBean.setCode(CommonConstants.CHECK_FAIL);
             resultBean.setData("LOGIN FAIL!");
         }
         mv.addObject(resultBean);

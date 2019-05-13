@@ -1,6 +1,7 @@
 package cn.team.config;
 
 import cn.team.common.beans.ResultBean;
+import cn.team.common.constant.CommonConstants;
 import cn.team.common.util.UserUtil;
 import cn.team.exception.AuthenticationAccessDeniedHandler;
 import cn.team.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -92,15 +94,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         resp.setContentType("application/json;charset=utf-8");
                         resp.setStatus(401);
                         ResultBean resultBean = new ResultBean();
-                        resultBean.setCode(ResultBean.CHECK_FAIL);
+                        resultBean.setCode(CommonConstants.CHECK_FAIL);
                         resultBean.setMsg("fail");
                         if (e instanceof BadCredentialsException ||
                                 e instanceof UsernameNotFoundException) {
-                            resultBean.setCode(ResultBean.USERNAME_OR_PASSWORD_NON);
+                            resultBean.setCode(CommonConstants.USERNAME_OR_PASSWORD_NON);
                         }
-//                        else if (e instanceof LockedException) {
-//                            resultBean = RespBean.error("账户被锁定，请联系管理员!");
-//                        }
+                        else if (e instanceof LockedException) {
+                            resultBean.setCode(CommonConstants.STATUS_LOCK);
+                            resultBean.setMsg("账户被锁定，请联系管理员!");
+                        }
 //                        else if (e instanceof CredentialsExpiredException) {
 //                            respBean = RespBean.error("密码过期，请联系管理员!");
 //                        } else if (e instanceof AccountExpiredException) {
@@ -109,7 +112,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                            respBean = RespBean.error("账户被禁用，请联系管理员!");
 //                        }
                         else {
-                            resultBean.setCode(ResultBean.UNKNOWN_EXCEPTION);
+                            resultBean.setCode(CommonConstants.UNKNOWN_EXCEPTION);
                             resultBean.setMsg("未知异常");
                         }
                         ObjectMapper om = new ObjectMapper();

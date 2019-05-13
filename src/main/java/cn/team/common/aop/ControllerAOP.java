@@ -1,6 +1,7 @@
 package cn.team.common.aop;
 
 import cn.team.common.beans.ResultBean;
+import cn.team.common.constant.CommonConstants;
 import cn.team.common.exception.CheckException;
 import cn.team.common.exception.UnloginException;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -47,20 +48,20 @@ public class ControllerAOP {
         // 校验出错, 参数非法
         if(e instanceof CheckException || e instanceof IllegalArgumentException) {
             result.setMsg(e.getLocalizedMessage());
-            result.setCode(ResultBean.CHECK_FAIL);
+            result.setCode(CommonConstants.CHECK_FAIL);
         }
         // 没有登陆
         else if(e instanceof UnloginException) {
             result.setMsg("Unlogin");
-            result.setCode(ResultBean.NO_LOGIN);
+            result.setCode(CommonConstants.NO_LOGIN);
         }
         else if(e instanceof NoPermissionException) {
             result.setMsg("No PERMISSION");
-            result.setCode(ResultBean.NO_PERMISSION);
+            result.setCode(CommonConstants.NO_PERMISSION);
         }else {
             logger.error(pjp.getSignature() + "error", e);
             result.setMsg(e.toString());
-            result.setCode(ResultBean.UNKNOWN_EXCEPTION);
+            result.setCode(CommonConstants.UNKNOWN_EXCEPTION);
         }
 
         return result;

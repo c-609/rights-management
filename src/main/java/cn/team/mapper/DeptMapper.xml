@@ -123,7 +123,7 @@
 			dept.`status`
 		FROM
 			dept_role
-				INNER JOIN dept ON dept_role.role_id = dept.id
+				INNER JOIN dept ON dept_role.dept_id = dept.id
 		WHERE
 			dept_role.role_id = #{rid}
 
