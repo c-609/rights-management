@@ -7,6 +7,7 @@ import cn.team.service.MenuRoleService;
 import cn.team.service.RoleService;
 import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -30,18 +31,21 @@ public class UpmsRoleController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("@pms.hasPermission('upms_role_add')")
     public ResultBean addRole(String role, String roleZh) {
         return new ResultBean(roleService.addNewRole(role, roleZh));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("@pms.hasPermission('upms_role_delete')")
     public ResultBean deleteRole(Long rid) {
         return new ResultBean(roleService.deleteRoleById(rid));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("@pms.hasPermission('upms_role_update')")
     public ResultBean updateRole(Role role) {
         return new ResultBean(roleService.updateRole(role));
     }
@@ -54,6 +58,7 @@ public class UpmsRoleController {
      */
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("@pms.hasPermission('upms_role_menu_auth')")
     public ResultBean setRoleAuth(Long rid, Long[] mids) {
         return new ResultBean(menuRoleService.updateMenuRole(rid, mids));
     }
@@ -65,6 +70,7 @@ public class UpmsRoleController {
      * @return
      */
     @PostMapping("/deptAuthForRole")
+    @PreAuthorize("@pms.hasPermission('upms_role_dept_auth')")
     public ResultBean deptAuthForRole(int rid, int[] deptIds) {
         return new ResultBean(roleService.updateDeptAuthForRole(rid, deptIds));
     }

@@ -6,6 +6,7 @@ import cn.team.common.beans.ResultBean;
 import cn.team.service.MenuService;
 import cn.team.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class UpmsUserController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<Integer> addUser(User user, Long rids[]) {
+    public ResultBean<Integer> addUser(@RequestBody User user, Long rids[]) {
         return new ResultBean(userService.addUser(user, rids));
     }
 
@@ -43,8 +44,9 @@ public class UpmsUserController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<Integer> updateUser(@RequestBody User user) {
-        return new ResultBean(userService.updateUser(user));
+    @PreAuthorize("@pms.hasPermission('user_basic_update')")
+    public ResultBean<Integer> updateUser(@RequestBody User user,Long[] roleIds) {
+        return new ResultBean(userService.updateUser(user, roleIds));
     }
 
     @RequestMapping(value = "/menuTree", method = RequestMethod.POST)

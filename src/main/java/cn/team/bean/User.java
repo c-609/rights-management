@@ -14,58 +14,57 @@ import org.springframework.util.StringUtils;
 
 @Data
 public class User implements UserDetails{
-	private long id;
-	private String username;
-	private String password;
-	private int status;
-	
-	private List<Role> roles;
-	private List<Menu> menus;
-	private List<Dept> depts;
+    private long id;
+    private String username;
+    private String password;
+    private int status;
 
-	@JsonIgnore
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public List<Role> getRoles() {
-		return roles;
-	}
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-//	@JsonIgnore
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<>();
+    private List<Role> roles;
+    private List<Menu> menus;
+    private List<Dept> depts;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+    //	@JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
+        // TODO 后期将会使用menu.component 鉴权
+        menus.stream().forEach(node -> {
+            if (!StringUtils.isEmpty(node.getComponent())) {
+                authorities.add(new SimpleGrantedAuthority(node.getComponent()));
+            }
+        });
         return authorities;
-	}
-	@JsonIgnore
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-	// 用户是否锁定
-	@JsonIgnore
-	@Override
-	public boolean isAccountNonLocked() {
-		return (status == CommonConstants.STATUS_LOCK) ? false : true;
-	}
-	@JsonIgnore
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-	// 用户是否启用
-	@JsonIgnore
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    }
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    // 用户是否锁定
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return (status == CommonConstants.STATUS_LOCK) ? false : true;
+    }
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    // 用户是否启用
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

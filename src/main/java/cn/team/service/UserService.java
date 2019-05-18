@@ -66,7 +66,15 @@ public class UserService implements UserDetailsService{
 	public User getUserByUsername(String username) {
 		return userMapper.findUserByUsername(username);
 	}
-	public int updateUser(User user) {
+
+	/**
+	 * 编辑用户 及 对应的角色
+	 * @param user
+	 * @param rids 角色id列表
+	 * @return
+	 */
+	public int updateUser(User user, Long[] rids) {
+		updateRoleForUser(user.getId(), rids);
 		return userMapper.updateUser(user);
 	}
 	public int deleteUserByUId(Long uid) {

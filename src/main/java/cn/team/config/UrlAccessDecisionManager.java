@@ -32,15 +32,17 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
                 } else
                     return;
             }
-            //当前用户所具有的权限
-            Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-            for (GrantedAuthority authority : authorities) {
-                if (authority.getAuthority().equals(needRole)) {
-                    return;
-                }
-            }
         }
-        throw new AccessDeniedException("权限不足!");
+            //当前用户所具有的权限
+//            Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+//            for (GrantedAuthority authority : authorities) {
+//                if (authority.getAuthority().equals(needRole)) {
+//                    return;
+//                }
+//            }
+//        }
+//        throw new AccessDeniedException("权限不足!");
+            return;
     }
     @Override
     public boolean supports(ConfigAttribute configAttribute) {

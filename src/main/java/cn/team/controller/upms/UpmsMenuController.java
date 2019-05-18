@@ -28,7 +28,6 @@ public class UpmsMenuController {
      * @return 当前用户的树形菜单
      */
     @GetMapping
-//    @ResponseBody
     public ResultBean<List<MenuTree>> getUserMenu() {
         List menuList = menuService.getMenusByUId();
         return new ResultBean(TreeUtil.buildTree(menuList, -1));

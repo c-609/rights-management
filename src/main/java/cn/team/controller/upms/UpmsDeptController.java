@@ -54,6 +54,7 @@ public class UpmsDeptController {
      * @return
      */
     @RequestMapping(value = "/dept_add", method = RequestMethod.POST)
+    @PreAuthorize("@pms.hasPermission('upms_dept_add')")
     public ResultBean save(@Valid @RequestBody Dept dept) {
         return new ResultBean(deptService.save(dept));
     }
@@ -64,6 +65,7 @@ public class UpmsDeptController {
      * @return 1 / 0
      */
     @PostMapping("/dept_delete")
+    @PreAuthorize("@pms.hasPermission('upms_dept_delete')")
     public ResultBean delete(Integer id) {
         return new ResultBean(deptService.deleteDept(id));
     }
@@ -74,6 +76,7 @@ public class UpmsDeptController {
      * @return
      */
     @PostMapping("dept_update")
+    @PreAuthorize("@pms.hasPermission('upms_dept_update')")
     public ResultBean update(@Valid @RequestBody Dept dept) {
         dept.setUpdateTime(LocalDateTime.now());
         return new ResultBean(deptService.updateDept(dept));

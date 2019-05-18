@@ -20,6 +20,13 @@ public class UserServiceTest extends RightsManageApplicationTest {
     RoleService roleService;
 
     @Test
+    public void testFindUserByUsername() {
+        String username = "admin1";
+        User user = userService.getUserByUsername(username);
+        System.out.println(user);
+    }
+
+    @Test
     public void testGetAllUesr() {
         List userList = userService.getAllUser();
         System.out.println(userList);
@@ -28,9 +35,10 @@ public class UserServiceTest extends RightsManageApplicationTest {
     @Test
     public void testUpdate() {
         User user = new User();
-        user.setId(59L);
+        user.setId(150L);
         user.setUsername("www");
-        int rowCount = userService.updateUser(user);
+        Long[] rids = {8L, 18L, 38L};
+        int rowCount = userService.updateUser(user, rids);
         System.out.println(rowCount);
     }
 
@@ -47,9 +55,11 @@ public class UserServiceTest extends RightsManageApplicationTest {
         User user = new User();
         user.setPassword("123");
         user.setUsername("haoshuai");
+        user.setStatus(0);
         Long rids[] = {5L, 1L};
         int rowCount = userService.addUser(user, rids);
         System.out.println(rowCount);
     }
+
 
 }

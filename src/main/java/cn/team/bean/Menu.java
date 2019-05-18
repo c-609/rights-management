@@ -14,7 +14,7 @@ public class Menu implements Serializable {
     private Integer id;
     private String url;
     private String path;
-    private Object component;
+    private String component;
     private String name;
     private String iconCls;
     private Integer parentId;

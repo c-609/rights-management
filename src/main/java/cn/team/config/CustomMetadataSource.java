@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 
+ *  匹配访问资源
  */
 @Component
 public class CustomMetadataSource implements FilterInvocationSecurityMetadataSource {
