@@ -36,7 +36,7 @@ public class User implements UserDetails{
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
-        // TODO 后期将会使用menu.component 鉴权
+
         menus.stream().forEach(node -> {
             if (!StringUtils.isEmpty(node.getComponent())) {
                 authorities.add(new SimpleGrantedAuthority(node.getComponent()));

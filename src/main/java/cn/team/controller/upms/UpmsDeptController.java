@@ -3,12 +3,16 @@ package cn.team.controller.upms;
 import cn.team.bean.Dept;
 import cn.team.common.beans.ResultBean;
 import cn.team.service.DeptService;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * create by yifeng
@@ -40,12 +44,20 @@ public class UpmsDeptController {
     }
 
     /**
-     * 返回当前用户树形菜单集合
-     * @return 树形菜单
+     * 更具角色id 获取部门列表
+     * @param roleId
+     * @return
      */
-//    @RequestMapping("/user-tree")
-    public ResultBean listCurrentUserDeptTrees() {
-        return new ResultBean();
+    @GetMapping(value = "/{roleId}")
+    @ResponseBody
+    public ResultBean getRoleIdByDepts(@PathVariable int roleId) {
+        // 转换成id数组返回给前端
+        List<Dept> deptList = deptService.findDeptsByRoleid(roleId);
+        var resultList = new ArrayList<Integer>(deptList.size());
+        deptList.stream().forEach(node -> {
+            resultList.add(node.getId());
+        });
+        return new ResultBean(resultList);
     }
 
     /**

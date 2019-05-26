@@ -39,5 +39,6 @@ public interface UserMapper {
 	
 	int addRolesForUser(@Param("uId") Long  uId, @Param("rids") Long [] rids);
 
+	List<User> selectUsersByGroupId(@Param("gid") Integer gid);
 	//int updateRoleForUser(@Param("urId") int urId,@Param("rid") int rId);
 }

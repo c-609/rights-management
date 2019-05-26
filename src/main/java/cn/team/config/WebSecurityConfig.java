@@ -42,8 +42,6 @@ import java.io.PrintWriter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -66,8 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/index.html", "/static/**", "/login_p", "/favicon.ico");
+        web.ignoring().antMatchers("/index.html", "/static/**", "/login_p");
     }
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -129,10 +129,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest req,
                                                         HttpServletResponse resp,
                                                         Authentication auth) throws IOException {
-//                        resp.setStatus(400);
                         resp.setContentType("application/json;charset=utf-8");
                         ResultBean<Object> resultBean = new ResultBean<Object>(UserUtil.getCurrentUser());
-                        System.out.println(auth.getDetails());
                         Long userId = UserUtil.getCurrentUser().getId();
                         UserUtil.setUser(userId.toString());
                         resultBean.setCode(0);

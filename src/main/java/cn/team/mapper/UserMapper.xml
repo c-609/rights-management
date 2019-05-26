@@ -139,7 +139,18 @@
     <delete id="deleteRoleByUId" parameterType="Long">
         DELETE FROM user_role where user_id=#{UId}
     </delete>
-    
+
+	<select id="selectUsersByGroupId" resultMap="UserMap">
+		SELECT
+			u.*
+		FROM
+			users AS u,
+			u_group_user AS ugu
+		WHERE
+			u.id = ugu.user_id
+		  AND
+			ugu.u_group_id IN (#{gid})
+	</select>
     <!-- <update id="updateRoleForUser">
     	update user_role set role_id = #{rId} where user_role.id=#{urId}
 		

@@ -40,30 +40,35 @@ public class ConfigController {
      */
     @RequestMapping("/sysmenu")
     @ResponseBody
+    @Deprecated
     public ResultBean<List<Menu>> sysmenu() {
         return new ResultBean(TreeUtil.buildTree(menuService.getMenusByUId(), -1));
     }
 
     @RequestMapping(value = "/user")
     @ResponseBody
+    @Deprecated
     public ResultBean<User> currentUser() {
         return new ResultBean(UserUtil.getCurrentUser());
     }
 
     @RequestMapping(value = "/allroles")
     @ResponseBody
+    @Deprecated
     public ResultBean<Role> allroles() {
        return new ResultBean(roleService.roles());
     }
 
     @RequestMapping(value = "/getDeptIdByRoles")
     @ResponseBody
+    @Deprecated
     public ResultBean getDeptIdByRoles(int deptId) {
         return new ResultBean(roleService.findRolesByDeptid(deptId));
     }
 
     @GetMapping(value = "/findDeptsByRoleid")
     @ResponseBody
+    @Deprecated
     public ResultBean getRoleIdByDepts(int roleId) {
         // 转换成id数组返回给前端
         List<Dept> deptList = deptService.findDeptsByRoleid(roleId);
@@ -77,6 +82,7 @@ public class ConfigController {
 
     @RequestMapping(value = "/allmenuTree", method = RequestMethod.GET)
     @ResponseBody
+    @Deprecated
     public ResultBean<List<Menu>> allMenu() {
         TreeUtil.buildTree(menuService.list(), -1);
         return new ResultBean(TreeUtil.buildTree(menuService.list(), -1));
@@ -84,6 +90,7 @@ public class ConfigController {
 
     @RequestMapping(value = "/menuIdByRid", method = RequestMethod.POST)
     @ResponseBody
+    @Deprecated
     public ResultBean<List<Integer>> getMenusByRid(Long rid) {
         List<MenuTree> listMenu = TreeUtil.findLeafNode(TreeUtil.buildTree(menuService.getMenusByRid(rid), -1));
         List<Integer> resultList = new ArrayList<>();

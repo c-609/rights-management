@@ -64,6 +64,18 @@ public class UpmsRoleController {
     }
 
     /**
+     * 根据部门id获取角色列表
+     * @param deptId
+     * @return
+     */
+    @RequestMapping(value = "/{deptId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultBean getDeptIdByRoles(@PathVariable int deptId) {
+        return new ResultBean(roleService.findRolesByDeptid(deptId));
+    }
+
+
+    /**
      * 为角色赋予部门权限
      * @param rid 角色id
      * @param deptIds 部门id列表

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.team.mapper.GroupMapper">
+
+    <resultMap id="BaseResultMap" type="cn.team.bean.UGroup">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sort" property="sort"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"/>
+    </resultMap>
+
+    <!-- 通过用户ID，查询组id -->
+    <!-- TODO 此处和GroupMapper.xml 的 selectGroupByUserId 功能重叠，需要修改-->
+    <select id="selectGroupsByUserId" resultMap="BaseResultMap">
+        select
+            g.*
+        FROM
+            `u_group` as g,u_group_user as gu
+        WHERE
+            g.id = gu.u_group_id
+          AND
+            gu.user_id IN (#{userId})
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select *
+        from
+        `u_group` as ug
+        where
+        ug.id = #{id}
+    </select>
+
+    <!--
+    group(name,sort,parent_id,create_time,update_time, del_flag)
+            values('www',1,-
+    -->
+
+    <insert id="save">
+        insert into `u_group` ( name, sort, parent_id,create_time, update_time, del_flag)
+        values(#{name},#{sort},#{parentId},#{createTime},#{updateTime}, #{delFlag})
+    </insert>
+
+    <update id="updateById">
+        update `u_group`
+        <set>
+            <if test="group.name != null and group.name != ''">
+                name = #{group.name},
+            </if>
+            <if test="group.sort != null">
+                sort = #{group.sort},
+            </if>
+            <if test="group.delFlag != null and group.delFlag != ''">
+                del_flag = #{group.delFlag},
+            </if>
+            <if test="group.updateTime != null">
+                update_time = #{group.updateTime}
+            </if>
+        </set>
+          where `u_group`.id = #{group.id}
+    </update>
+
+    <delete id="removeById">
+        delete from u_group where  u_group.id = #{id}
+    </delete>
+    
+</mapper>

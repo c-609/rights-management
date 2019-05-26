@@ -2,7 +2,13 @@ package cn.team.common.security.utils;
 
 import cn.team.bean.User;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 安全工具类
@@ -39,7 +45,7 @@ public class SecurityUtils {
 //        List<Integer> roleIds = new ArrayList<>();
 //        authorities.stream()
 //            .forEach(granted -> {
-//                String id =
+//                String id = StringUtils.re
 //            });
 //    }
 
