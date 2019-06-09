@@ -70,7 +70,6 @@ public class UpmsUserController {
     }
 
     @RequestMapping(value = "/getListByDeptId", method = RequestMethod.GET)
-    @ResponseBody
     public ResultBean<List<User>> getByDeptId(int deptId) {
         return new ResultBean<>(userService.getUserlistByDeptId(deptId));
     }

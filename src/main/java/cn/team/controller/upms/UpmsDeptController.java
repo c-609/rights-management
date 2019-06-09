@@ -35,8 +35,8 @@ public class UpmsDeptController {
     }
 
     /**
-     * 返回树形菜单集合
-     * @return 树形菜单
+     * 返回树形部门集合
+     * @return 部门树
      */
     @RequestMapping("/tree")
     public ResultBean listDeptTrees() {
@@ -44,13 +44,13 @@ public class UpmsDeptController {
     }
 
     /**
-     * 更具角色id 获取部门列表
+     * 返回角色的部门列表
      * @param roleId
      * @return
      */
-    @GetMapping(value = "/{roleId}")
+    @GetMapping(value = "/list/{roleId}")
     @ResponseBody
-    public ResultBean getRoleIdByDepts(@PathVariable int roleId) {
+    public ResultBean getRoleIdByDepts(@PathVariable Integer roleId) {
         // 转换成id数组返回给前端
         List<Dept> deptList = deptService.findDeptsByRoleid(roleId);
         var resultList = new ArrayList<Integer>(deptList.size());

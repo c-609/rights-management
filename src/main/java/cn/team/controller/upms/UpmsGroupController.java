@@ -3,7 +3,6 @@ package cn.team.controller.upms;
 import cn.team.bean.UGroup;
 import cn.team.common.beans.ResultBean;
 import cn.team.common.util.UserUtil;
-import cn.team.mapper.GroupMapper;
 import cn.team.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -71,6 +70,16 @@ public class UpmsGroupController {
     @PreAuthorize("@pms.hasPermission('upms_u_group_edit')")
     public ResultBean update(@Valid @RequestBody UGroup uGroup) {
         return new ResultBean(groupService.update(uGroup));
+    }
+
+    /**
+     * 更具组角色
+     * @return
+     */
+    @PutMapping("/group")
+    @PreAuthorize("@pms.hasPermission('upms_u_group_perm')")
+    public ResultBean saveGroupRole(Integer groupId, Integer[] roleIds) {
+        return new ResultBean(groupService.updateGroupRole(groupId, roleIds));
     }
 
 

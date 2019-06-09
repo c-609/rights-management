@@ -10,7 +10,7 @@ public interface UGroupRoleMapper {
 
     int insertListByrid(Integer rid, int[] gids);
 
-    int insertListBygid(Integer gid, int[] rids);
+    int insertListBygid(Integer gid, Integer[] rids);
 
     boolean deleteByrid(Integer rid);
 

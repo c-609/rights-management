@@ -12,6 +12,7 @@ import cn.team.vo.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,6 +42,17 @@ public class GroupService {
      */
     public List<UGroup> listGroupByUserId(Long userId){
         return groupMapper.selectGroupsByUserId(userId);
+    }
+
+    /**
+     * 更新组角色关系
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateGroupRole(Integer groupId, Integer[] roles) {
+        uGroupRoleMapper.deleteByUGroupId(groupId);
+        uGroupRoleMapper.insertListBygid(groupId, roles);
+        return Boolean.TRUE;
     }
 
     /**

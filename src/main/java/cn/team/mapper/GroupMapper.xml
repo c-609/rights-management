@@ -41,8 +41,8 @@
     -->
 
     <insert id="save">
-        insert into `u_group` ( name, sort, parent_id,create_time, update_time, del_flag)
-        values(#{name},#{sort},#{parentId},#{createTime},#{updateTime}, #{delFlag})
+        insert into `u_group` ( name, sort, parent_id,create_time, update_time)
+        values(#{name},#{sort},#{parentId},#{createTime},#{updateTime})
     </insert>
 
     <update id="updateById">
@@ -53,9 +53,6 @@
             </if>
             <if test="group.sort != null">
                 sort = #{group.sort},
-            </if>
-            <if test="group.delFlag != null and group.delFlag != ''">
-                del_flag = #{group.delFlag},
             </if>
             <if test="group.updateTime != null">
                 update_time = #{group.updateTime}

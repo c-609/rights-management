@@ -1,7 +1,6 @@
 package cn.team.controller.upms;
 
 import cn.team.bean.Menu;
-import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
 import cn.team.dto.MenuTree;
 import cn.team.service.MenuService;
@@ -9,7 +8,6 @@ import cn.team.vo.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;

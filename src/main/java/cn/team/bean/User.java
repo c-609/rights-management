@@ -29,9 +29,12 @@ public class User implements UserDetails{
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-    //	@JsonIgnore
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (roles.size() == 0 && roles == null) {
+            return null;
+        }
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
