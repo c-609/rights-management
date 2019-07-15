@@ -77,6 +77,7 @@ public class UpmsRoleController {
 
     /**
      * 为角色赋予部门权限
+     * TODO 菜单中未添加该权限
      * @param rid 角色id
      * @param deptIds 部门id列表
      * @return

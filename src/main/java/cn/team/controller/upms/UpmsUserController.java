@@ -1,12 +1,14 @@
 package cn.team.controller.upms;
 
 import cn.team.bean.Menu;
+import cn.team.bean.UGroup;
 import cn.team.bean.User;
 import cn.team.common.beans.ResultBean;
 import cn.team.common.util.UserUtil;
+import cn.team.service.GroupService;
 import cn.team.service.MenuService;
 import cn.team.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +19,15 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/upms/user")
+@AllArgsConstructor
 public class UpmsUserController {
 
-    @Autowired
+//    @Autowired
     private UserService userService;
 
-    @Autowired
+//    @Autowired
     private MenuService menuService;
+    private GroupService groupService;
 
     @RequestMapping("/")
     @ResponseBody
@@ -72,6 +76,15 @@ public class UpmsUserController {
     @RequestMapping(value = "/getListByDeptId", method = RequestMethod.GET)
     public ResultBean<List<User>> getByDeptId(int deptId) {
         return new ResultBean<>(userService.getUserlistByDeptId(deptId));
+    }
+
+    /**
+     * 获取用户对应的用户组
+     * @return
+     */
+    @GetMapping("/group")
+    public ResultBean<List<UGroup>> getUidByUsers(Long userId) {
+        return new ResultBean<>(groupService.listGroupByUserId(userId));
     }
 
 }

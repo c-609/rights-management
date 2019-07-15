@@ -14,8 +14,7 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <!-- 通过用户ID，查询组id -->
-    <!-- TODO 此处和GroupMapper.xml 的 selectGroupByUserId 功能重叠，需要修改-->
+    <!-- 通过用户ID，查询用户组列表 -->
     <select id="selectGroupsByUserId" resultMap="BaseResultMap">
         select
             g.*

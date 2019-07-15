@@ -1,22 +1,20 @@
 package cn.team.service;
 
-import cn.team.bean.Dept;
 import cn.team.bean.UGroup;
+import cn.team.bean.UGroupUser;
 import cn.team.bean.User;
-import cn.team.dto.DeptTree;
-import cn.team.mapper.DeptMapper;
 import cn.team.mapper.GroupMapper;
 import cn.team.mapper.UGroupRoleMapper;
 import cn.team.mapper.UGroupUserMapper;
-import cn.team.vo.TreeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -25,14 +23,12 @@ import java.util.stream.Collectors;
  * create by yifeng
  */
 @Service
+@AllArgsConstructor
 public class GroupService {
-    @Autowired
     GroupMapper groupMapper;
-    @Autowired
     UGroupRoleMapper uGroupRoleMapper;
-    @Autowired
     UGroupUserMapper uGroupUserMapper;
-
+    UserService userService;
 
     /**
      *  通过用户ID，查询用户组信息
@@ -42,6 +38,24 @@ public class GroupService {
      */
     public List<UGroup> listGroupByUserId(Long userId){
         return groupMapper.selectGroupsByUserId(userId);
+    }
+
+    /**
+     * 获取用户列表 根据组id
+     * @param gid
+     * @return
+     */
+    public List<User> listUserByGid(Integer gid) {
+        List<UGroupUser> ugroupUserList = uGroupUserMapper.
+                selectList(Wrappers.
+                        lambdaQuery(UGroupUser
+                                .builder()
+                                .uGroupId(gid).build()));
+        List<User> users = new ArrayList<>(ugroupUserList.size());
+        ugroupUserList.stream().forEach(item -> {
+            users.add(userService.findUserById(item.getUserId()));
+        });
+        return users;
     }
 
     /**

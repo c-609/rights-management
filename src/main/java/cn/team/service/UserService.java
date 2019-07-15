@@ -111,4 +111,7 @@ public class UserService implements UserDetailsService{
 		return deptMapper.getAllUserByDeptId(deptId);
 	}
 
+	public User findUserById(Integer uid) {
+		return userMapper.findUserById(uid);
+	}
 }

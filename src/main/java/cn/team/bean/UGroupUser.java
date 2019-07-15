@@ -1,5 +1,6 @@
 package cn.team.bean;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * create by yifeng
  */
 @Data
+@Builder
 public class UGroupUser {
     /**
      * 用户id

@@ -13,7 +13,7 @@ import java.util.List;
 public interface GroupMapper {
 
     /**
-     * 通过用户ID， 查询组信息
+     * 通过用户ID， 查询组列表
      *
      * @param UserId
      * @return

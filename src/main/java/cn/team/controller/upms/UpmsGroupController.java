@@ -73,7 +73,9 @@ public class UpmsGroupController {
     }
 
     /**
-     * 更具组角色
+     * 更新组权限
+     * @param groupId 组id
+     * @param roleIds 角色ids
      * @return
      */
     @PutMapping("/group")
@@ -82,5 +84,9 @@ public class UpmsGroupController {
         return new ResultBean(groupService.updateGroupRole(groupId, roleIds));
     }
 
+    @GetMapping("/users/{gid}")
+    public ResultBean getUsersById(Integer gid) {
+        return new ResultBean(groupService.listUserByGid(gid));
+    }
 
 }
