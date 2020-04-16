@@ -21,7 +21,7 @@ public class UGroupRoleMapperTest extends RightsManageApplicationTest {
 
     @Test
     public void testInsertListBygid() {
-        int[] rids = {82, 139};
+        Integer[] rids = {82, 139};
         int result = uGroupRoleMapper.insertListBygid(1, rids);
         System.out.println(result);
     }
